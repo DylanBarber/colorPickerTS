@@ -1,0 +1,26 @@
+{
+  "name": "colorPickerTS",
+  "version": "1.0.0",
+  "description": "Run on a server by serving index.html or simply open index.html in a browser# colorPickerTS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "lintFix": "tslint --fix 'src/**/*.ts'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DylanBarber/colorPickerTS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DylanBarber/colorPickerTS/issues"
+  },
+  "homepage": "https://github.com/DylanBarber/colorPickerTS#readme",
+  "dependencies": {
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.4"
+  }
+}
