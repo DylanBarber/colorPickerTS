@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="./index.css" rel="stylesheet" type="text/css">
+  <meta property="og:title" content="Random Color Generator">
+  <meta property="og:description" content="Random RGB color generator by Dylan Barber">
+  <meta property="og:image" content="./lib/img/meta.jpg">
+  <title>Color Picker</title>
+</head>
+
+<body>
+  <h1 id="loading">Loading...</h1>
+  <h2 id="RGBColorTitle"></h2>
+  <h2 id="hexColorTitle"></h2>
+  <button id="startStop" class="invisible">Start / Stop</button>
+  <div class="historyAndFavorites">
+    <div class="historyContainer">
+      <h2 id="historyTitle" class="invisible">History</h2>
+      <div class="historyBox invisible" id="historyBox"></div>
+      <div class="historyButtonsContainer">
+        <button id="clearHistoryButton" class="invisible">Clear History</button>
+        <button id="addToFavoritesButton" class="invisible">Add To Favorites</button>
+      </div>
+
+    </div>
+
+    <div class="favoritesContainer">
+      <h2 id="favoritesTitle" class="invisible">Favorites</h2>
+      <div class="favoritesBox invisible" id="favoritesBox"></div>
+      <div class="favoritesButtonsContainer">
+        <button id="clearFavoritesButton" class="invisible">Clear Favorites</button>
+        <button id="addCurrentColorButton" class="invisible">Add Current Color</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="./main.js"></script>
+</body>
+
+</html>
