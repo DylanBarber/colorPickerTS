@@ -2,16 +2,16 @@
 let repeat = true;
 
 // Create array for history tracking
-let historyArray: object[] = [];
+let historyArray: IColorObject[] = [];
 
 // Create array for favorites
-let favoritesArray: object[] = [];
+let favoritesArray: IColorObject[] = [];
 
 // prevItem for highlighting rows in historyBox when clicked
-let prevItem: string;
+let prevItem: HTMLElement | null;
 
 // For the current highlighted intem in historyBox
-let currentItem: string;
+let currentItem: HTMLElement | null;
 
 // For storage of the current color
 let currentColor: IColorObject;
@@ -55,7 +55,7 @@ const displayDOMOnStart = () => {
 };
 
 // Function to obtain random number from 0-255 for RGB values
-const getRandomNum = () => {
+const getRandomNum = (): number => {
   return Math.round(Math.random() * 255);
 };
 
@@ -65,8 +65,8 @@ const changeColorTitlesText = (red: number, green: number, blue: number): void =
 };
 
 // Function that converts RGB to hex
-const rgbToHex = (red, green, blue) => {
-  const convert = (color) => {
+const rgbToHex = (red: number, green: number, blue: number): string => {
+  const convert = (color: number): string => {
     let hex = Number(color).toString(16);
     if (hex.length < 2) {
       hex = "0" + hex;
@@ -79,14 +79,14 @@ const rgbToHex = (red, green, blue) => {
 };
 
 // Function that obtains the color value of a clicked item in color list
-const colorItemOnClick = (e) => {
+const colorItemOnClick = (e: HTMLElement) => {
   if (prevItem !== null) {
     prevItem.classList.remove("highlightedItem");
   }
   currentItem = e;
-  const red = currentItem.dataset.red;
-  const green = currentItem.dataset.green;
-  const blue = currentItem.dataset.blue;
+  const red: number = parseInt(currentItem.dataset.red!, 10);
+  const green: number = parseInt(currentItem.dataset.green!, 10);
+  const blue: number = parseInt(currentItem.dataset.blue!, 10);
   endMainLoop();
   changeBgColor(red, green, blue);
   currentColor = { red, green, blue };
@@ -97,20 +97,20 @@ const colorItemOnClick = (e) => {
 };
 
 // Function that changes the background color (Only used for colorItemOnClick because repeat is set to false)
-const changeBgColor = (red, green, blue) => {
+const changeBgColor = (red: number, green: number, blue: number): void => {
   document.body.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
   rgbToHex(red, green, blue);
 };
 
 // Function that ends main loop
-const endMainLoop = () => {
+const endMainLoop = (): void => {
   if (repeat === true) {
     repeat = false;
   }
 };
 
 // Changes the color title to either black or white based on the current background color (Passed in color)
-const changeTitleColor = (red, green, blue) => {
+const changeTitleColor = (red: number, green: number, blue: number): void => {
   if (red * 0.299 + green * 0.587 + blue * 0.114 > 186) {
     RGBColorTitle.style.color = "#000000";
     hexColorTitle.style.color = "#000000";
@@ -124,7 +124,7 @@ const changeTitleColor = (red, green, blue) => {
   }
 };
 
-const foregroundTextColor = (red, green, blue) => {
+const foregroundTextColor = (red: number, green: number, blue: number): string => {
   if (red * 0.299 + green * 0.587 + blue * 0.114 > 186) {
     return "#000000";
   } else {
@@ -164,14 +164,15 @@ clearHistoryButton.addEventListener("click", () => {
 // For adding the highlighted color from history to favorites
 addToFavoritesButton.addEventListener("click", () => {
   if (currentItem !== null) {
-    const targetArr = currentItem.textContent.split(",");
-    const red = parseInt(targetArr[0].split(" ")[1]);
-    const green = parseInt(targetArr[1].split(" ")[2]);
-    const blue = parseInt(targetArr[2].split(" ")[2]);
+    const targetArr = currentItem.textContent!.split(",");
+    const red = parseInt(targetArr[0].split(" ")[1], 10);
+    const green = parseInt(targetArr[1].split(" ")[2], 10);
+    const blue = parseInt(targetArr[2].split(" ")[2], 10);
     favoritesArray.push({
       red,
+      // tslint:disable-next-line: object-literal-sort-keys
       green,
-      blue
+      blue,
     });
     // Map over all colors in the favorites array and display them in the favoritesBox
     renderFavorites();
@@ -216,15 +217,17 @@ const mainLoop = () => {
       // Push current color to the history array
       historyArray.push({
         red,
+        // tslint:disable-next-line: object-literal-sort-keys
         green,
-        blue
+        blue,
       });
 
       // Update currentColor with the current color
       currentColor = {
         red,
+        // tslint:disable-next-line: object-literal-sort-keys
         green,
-        blue
+        blue,
       };
 
       // Map over all colors in the history array and display them in the historyBox
