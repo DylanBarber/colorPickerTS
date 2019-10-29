@@ -8,7 +8,7 @@ let historyArray: IColorObject[] = [];
 let favoritesArray: IColorObject[] = [];
 
 // prevItem for highlighting rows in historyBox when clicked
-let prevItem: HTMLElement | null;
+let prevItem: HTMLElement | null = null;
 
 // For the current highlighted intem in historyBox
 let currentItem: HTMLElement | null;
@@ -79,14 +79,14 @@ const rgbToHex = (red: number, green: number, blue: number): string => {
 };
 
 // Function that obtains the color value of a clicked item in color list
-const colorItemOnClick = (e: HTMLElement) => {
-  if (prevItem !== null) {
+const colorItemOnClick = (e: any): void => {
+  if (prevItem) {
     prevItem.classList.remove("highlightedItem");
   }
   currentItem = e;
-  const red: number = parseInt(currentItem.dataset.red!, 10);
-  const green: number = parseInt(currentItem.dataset.green!, 10);
-  const blue: number = parseInt(currentItem.dataset.blue!, 10);
+  const red = parseInt(currentItem!.dataset.red!, 10);
+  const green = parseInt(currentItem!.dataset.green!, 10);
+  const blue = parseInt(currentItem!.dataset.blue!, 10);
   endMainLoop();
   changeBgColor(red, green, blue);
   currentColor = { red, green, blue };
@@ -133,11 +133,11 @@ const foregroundTextColor = (red: number, green: number, blue: number): string =
 };
 
 // Re-render functions for historyBox and favoritesBox
-const renderHistory = () => {
+const renderHistory = (): void => {
   historyBox.innerHTML = `<ul> ${historyArray.map((color, index) => `<li style="background-color: rgb(${color.red},${color.green},${color.blue}); color: ${foregroundTextColor(color.red, color.green, color.blue)};" data-red=${color.red} data-green=${color.green} data-blue=${color.blue} id='${index}' onclick=colorItemOnClick(this)>Red: ${color.red}, Green: ${color.green}, Blue: ${color.blue}`)} </ul>`;
 };
 
-const renderFavorites = () => {
+const renderFavorites = (): void => {
   favoritesBox.innerHTML = `<ul> ${favoritesArray.map((color, index) => `<li style="background-color: rgb(${color.red},${color.green},${color.blue}); color: ${foregroundTextColor(color.red, color.green, color.blue)};" data-red=${color.red} data-green=${color.green} data-blue=${color.blue} id='${index}' onclick=colorItemOnClick(this)>Red: ${color.red}, Green: ${color.green}, Blue: ${color.blue}`)} </ul>`;
 };
 
